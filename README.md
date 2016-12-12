@@ -1,3 +1,1 @@
-Dima, sorry...
-Repo was removed for doing task correctly.
-It will be back soon.
+So, this is my changes in master branch to get merge conflict
