@@ -1,1 +1,1 @@
-So, this is my changes in master branch to get merge conflict
+This is my training project for "QA Automation for beginners: Selenium+Ruby" course from ITLabs
