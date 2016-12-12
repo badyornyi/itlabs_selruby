@@ -1,0 +1,15 @@
+1. What is 'git stash' and how to use it?
+'git stash' command lets possibility to hide your unfinished changes.
+This trick allows you to switch to another branch and to don't loose unfinished changes without commiting.
+
+2. What is 'git reset' and when we shouldn't use it?
+'git reset' moves HEAD to one of previous commits
+and depending on options, command changes or not changes Index (Stage area) and Files in the Working Dir
+
+3. When we need cherry-pick, and how does it happens?
+Cherry-pick is needed when you want to "put" commit from another brahch(es) to your current branch.
+This command takes commit from another branch and applies it on current branch
+
+4. What does do 'git rm ..' command and what not?
+'git rm ..' command allows you to remove file(s) from index and/or physicaly from working dir.
+'git rm ..' command does not perform commit, that's why you'll need to commit info about file that was deleted.
