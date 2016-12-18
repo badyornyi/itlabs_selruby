@@ -96,6 +96,22 @@ end
 
 #5. There is an array of integers. First puts elements with even indexes and then with odd indexes
 
+#a = [1,2,3,4,5,6,7,8,9]
+def even_and_odd_indexes (a)
+  puts 'Elements with even indexes are:'
+  i = 0
+  while i < a.length
+    puts a[i]
+    i = i+2
+  end
+  puts 'Elements with odd indexes are:'
+  i = 1
+  while i < a.length
+    puts a[i]
+    i = i+2
+  end
+end
+
 
 #6. There is an array of integers (ary). Puts the index of the last element where ary[0]<ary[i]<ary[-1]
 
