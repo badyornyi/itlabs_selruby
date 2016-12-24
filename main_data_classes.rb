@@ -138,10 +138,25 @@ end
 
 #6. There is an array of integers (ary). Puts the index of the last element where ary[0]<ary[i]<ary[-1]
 
-#ary = [1,2,3,4,5,6,7,8,9]
-def arr_last_element_index(ary)
-  last_index = ary.length - 1
-  puts "Last index of your array is #{last_index}"
+#ary = [1,3,5,2,6,8,9,7]
+#ary = [1,3,5,2,6,8,4,7]
+#ary = [1,3,2,4,1,-5,9,6]
+#ary = [9,3,2,4,3,5,4,6]
+def arr_increase_last_element_index(ary)
+  i = 1
+  max = 0
+  while i < ary.length do
+    if (ary[0] < ary[i]) && (ary[i] < ary[-1])
+      max = i
+    end
+    i+=1
+  end
+
+  if max > 0
+    puts "Needed index is #{max}"
+  else
+    puts 'Sorry, array does not fit to this task'
+  end
 end
 
 
@@ -162,28 +177,21 @@ end
 
 
 #8. There is a hash where keys and values are strings. Modify it: all keys should be symbols and all values should be integers. If you couldn't modify some value set it to nil
-
+# (Sorry, I couldn't find more elegant solution)
 #h = {'Lorem' => '1', 'dolor' => ':sit', 'amet' => '-3', 'adipiscing' => 'elit','sed' => 'do', 'eiusmod' => '0'}
-def hash_str_to_sym_and_int(h)
-  a_keys = h.keys
-  a_values = h.values
-
-  h.delete_if do |key, value|
-    key.class == String
+def hash_str_to_sym_and_int_var(h)
+  h.keys.each do |key|
+    h[(key.to_sym rescue key) || key] = h.delete(key)
   end
 
-  i = 0
-  while i < a_keys.length
-    a_keys[i] = a_keys[i].to_sym
-    if a_values[i] == '0'
-      a_values[i] = a_values[i].to_i
-    elsif a_values[i].to_i.is_a?(Fixnum) && a_values[i].to_i != 0
-      a_values[i] = a_values[i].to_i
+  h.each do |key,value|
+    if value == '0'
+      h[key]=value.to_i
+    elsif value.to_i.is_a?(Fixnum) && value.to_i != 0
+      h[key]=value.to_i
     else
-      a_values[i] = nil
+      h[key]=nil
     end
-    h[a_keys[i]]=a_values[i]
-    i+=1
   end
   return h
 end
