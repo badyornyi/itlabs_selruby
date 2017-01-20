@@ -57,9 +57,21 @@ module OurModule
     @driver.find_element(:name => 'commit').click
   end
 
-  def create_project_open_page
+  def open_page_projects
     @wait.until {@driver.find_element(:class => 'projects').displayed?}
     @driver.find_element(:class => 'projects').click
+  end
+
+  def open_page_project_by_name(project_name)
+    open_page_projects
+    @wait.until {@driver.find_element(:css => "a[href^='/projects/#{project_name}']").displayed?}
+    @driver.find_element(:css => "a[href^='/projects/#{project_name}']").click
+  end
+
+  def create_project_open_page
+    #@wait.until {@driver.find_element(:class => 'projects').displayed?}
+    #@driver.find_element(:class => 'projects').click
+    open_page_projects
 
     @wait.until {@driver.find_element(:css => '.icon.icon-add').displayed?}
     @driver.find_element(:css => '.icon.icon-add').click
@@ -250,7 +262,35 @@ module OurModule
 
   def tab_open_issues
     #переход на "Задачи"
-    @wait.until {@driver.find_element(:css => '.issues.selected').displayed?}
-    @driver.find_element(:css => '.issues.selected').click
+    @wait.until {@driver.find_element(:css => '.issues').displayed?}
+    @driver.find_element(:css => '.issues').click
+  end
+
+  def issue_become_watcher
+    @wait.until {@driver.find_element(:css => '.icon.icon-fav-off').displayed?}
+    @driver.find_element(:css => '.icon.icon-fav-off').click
+  end
+
+  def bug_present?(issue_subject)
+    begin
+      @wait.until {@driver.find_element(:css => '.issues.selected').displayed?}
+      @driver.find_element(:xpath => "//a[.='#{issue_subject}']").displayed?
+      return true
+    rescue Selenium::WebDriver::Error::NoSuchElementError
+      return false
+    end
+  end
+
+  def issue_watched?
+    begin
+      @driver.find_element(:css => '.icon.icon-fav').displayed?
+      return true
+    rescue Selenium::WebDriver::Error::NoSuchElementError
+      return false
+    end
+  end
+
+  def issue_open_details(issue_subject)
+    @driver.find_element(:xpath => "//a[.='#{issue_subject}']").click
   end
 end
