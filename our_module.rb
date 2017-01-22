@@ -69,8 +69,6 @@ module OurModule
   end
 
   def create_project_open_page
-    #@wait.until {@driver.find_element(:class => 'projects').displayed?}
-    #@driver.find_element(:class => 'projects').click
     open_page_projects
 
     @wait.until {@driver.find_element(:css => '.icon.icon-add').displayed?}

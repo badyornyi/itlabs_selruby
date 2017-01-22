@@ -232,7 +232,7 @@ class TestRegistration < Test::Unit::TestCase
     create_project_version
 
     #make a random action: create or not a new bug issue
-    a = 1
+    a = rand(1)
     issue_type_bug
     if a == 1
       create_issue
@@ -260,7 +260,6 @@ class TestRegistration < Test::Unit::TestCase
     actual_result = Hash.new
     actual_result[:issue_type] = @driver.find_element(:xpath => '//h2').text.delete(' #0123456789')
     actual_result[:watching] = issue_watched?
-    actual_result.each {|key,val| puts "!!!Key is #{key}, value is #{val}!!!"}
     assert_equal(expected_result,actual_result)
   end
 
