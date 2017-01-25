@@ -224,6 +224,45 @@ class TestRegistration < Test::Unit::TestCase
     assert_equal(expected_visible_issue,actual_visible_issue)
   end
 
+  #HW #3
+  def test_create_bug_and_watch_it
+    #create project
+    register_user
+    create_project
+    create_project_version
+
+    #make a random action: create or not a new bug issue
+    a = rand(1)
+    issue_type_bug
+    if a == 1
+      create_issue
+    end
+
+    #open project page
+    open_page_project_by_name(@project_name)
+
+    #open issues tab
+    tab_open_issues
+
+    #if there is a bug present then add self to watchers
+    if bug_present?(@issue_subj)
+      issue_open_details(@issue_subj)
+    #if no then create a new bug issue and then add self to watchers
+    else
+      create_issue
+    end
+    issue_become_watcher
+
+    #Verify that there is a bug issue and that current user is a watcher
+    @wait.until {@driver.find_element(:css => '.icon.icon-fav').displayed?}
+
+    expected_result = {issue_type: 'Bug', watching: true}
+    actual_result = Hash.new
+    actual_result[:issue_type] = @driver.find_element(:xpath => '//h2').text.delete(' #0123456789')
+    actual_result[:watching] = issue_watched?
+    assert_equal(expected_result,actual_result)
+  end
+
   def teardown
     @driver.quit
   end
