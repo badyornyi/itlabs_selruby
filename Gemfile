@@ -1,5 +1,6 @@
 gem 'test-unit'
 gem 'selenium-webdriver'
+gem 'faker'
 #gem 'rest-client'
 #gem 'net-http-persistent'
 #gem 'regex'
