@@ -15,9 +15,8 @@ require_relative 'card'
 #uses
 #create user
 user = User.new
-user_register
-user_login
-user_logout
+user.register
+user.login
 
 
 #boards
@@ -26,19 +25,15 @@ board_1st = Board.new
 board_2nd = Board.new
 board_3rd = Board.new
 board_4th = Board.new
-board_create
 
 #mark 1st board as favorite
-board_1st.favorite(true)
-board_favorite
+board_1st.favorite
 
 #rename 2nd board
-board_2nd.rename(new_name)
-board_rename
+board_2nd.rename('new_name')
 
 #delete 4th board
 board_4th.delete
-board_delete
 
 
 #lists
@@ -47,9 +42,14 @@ list_1st = List.new
 list_2nd = List.new
 list_3rd = List.new
 list_4th = List.new
-list_create
+board_1st.create_list(list_1st)
+board_1st.create_list(list_2nd)
+board_1st.create_list(list_3rd)
+board_1st.create_list(list_4th)
+
 
 #copy 1st list
+board_1st.copy_list
 list_1st.copy(list_name)
 list_copy
 #rename 2nd list

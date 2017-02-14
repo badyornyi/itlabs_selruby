@@ -6,4 +6,12 @@ class User
     @email = Faker::Internet.email(@first_name + @last_name)
     @password = @first_name + @last_name
   end
+
+  def register
+    #register user
+  end
+
+  def login
+    #user login
+  end
 end
