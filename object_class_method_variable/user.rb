@@ -10,8 +10,4 @@ class User
   def register
     #register user
   end
-
-  def login
-    #user login
-  end
 end
