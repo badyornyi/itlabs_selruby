@@ -1,50 +1,35 @@
 require 'faker'
+require_relative 'list'
+
 class Board
+
+  attr_reader :board_title, :is_favorite, :is_closed
+
   def initialize
-    @board_title = Faker::Color.color_name
+    @board_title = Faker::Color.color_name.capitalize + ' Board'
+    @is_favorite = false
+    @is_closed = false
   end
 
-  def mark_favorite
-    # mark as favorite
+  def board_mark_favorite
+    @is_favorite = true
+    puts "Board '#{@board_title}' is marked as favorite"
   end
 
-  def rename(new_name)
-    # rename board
+  def board_rename(new_title)
+    old_title = @board_title
+    @board_title = new_title
+    puts "Board '#{old_title}' is renamed to '#{@board_title}'"
   end
 
-  def delete
-    #delete board
+  def board_close
+    @is_closed = true
+    puts "Board '#{@board_title}' is closed successfully"
   end
 
-  def add_list(list)
-    # create list on the board
-  end
-
-  def copy_list(list, new_list_name)
-    return new_list
-  end
-
-  def rename_list(list, new_list_name)
-    # code here
-  end
-
-  def move_list(dest_board, list, position)
-    # code here
-  end
-
-  def archive(list)
-    # code here
-  end
-
-  def add_comment_to_card(list, card, comment_text)
-    # code here
-  end
-
-  def edit_comment_to_card(list, card, comment, comment_text)
-    # code here
-  end
-
-  def delete_comment_to_card(list, card, comment)
-    # code here
+  def list_add
+    list = List.new
+    puts "List '#{list.list_title}' is added to board '#{@board_title}' successfully"
+    list
   end
 end
