@@ -6,7 +6,8 @@ class Board
   attr_reader :title, :is_favorite, :is_closed
 
   def initialize(title)
-    title ? (@title = title) : (@title = Faker::Color.color_name.capitalize + ' Board')
+    #title ? (@title = title) : (@title = Faker::Color.color_name.capitalize + ' Board')
+    @title = title
     @is_favorite = false
     @is_closed = false
   end
