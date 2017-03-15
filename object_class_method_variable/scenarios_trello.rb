@@ -21,23 +21,23 @@ user1.register
 
 #boards
 #create 4 different boards
-board1 = user1.board_create
-board2 = user1.board_create
-board4 = user1.board_create
+board1 = user1.create_board
+board2 = user1.create_board
+board4 = user1.create_board
 
 #mark 1st board as favorite
-board1.board_mark_favorite
+board1.mark_favorite
 
 #rename 2nd board
-board2.board_rename('New Board Title')
+board2.rename('New Board Title')
 
 #delete 4th board
-board4.board_close
+board4.close
 
 
 #lists
 #create 4 lists on 1st board
-board1.list_add
+board1.add_list
 
 #===============================================
 #copy 1st list

@@ -2,7 +2,7 @@ require 'faker'
 
 class Comment
   def initialize
-    @comment_text = Faker::ChuckNorris.fact
+    @text = Faker::ChuckNorris.fact
   end
 
 

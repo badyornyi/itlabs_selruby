@@ -2,10 +2,10 @@ require 'faker'
 
 class List
 
-  attr_reader :list_title
+  attr_reader :title
 
   def initialize
-    @list_title = 'House of ' + Faker::GameOfThrones.house
+    @title = 'House of ' + Faker::GameOfThrones.house
   end
 
 

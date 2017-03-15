@@ -19,9 +19,9 @@ class User
     puts "Login: #{@login}; Password: #{@password}"
   end
 
-  def board_create
+  def create_board
     board = Board.new
-    puts "New board '#{board.board_title}' created"
+    puts "New board '#{board.title}' created"
     board
   end
 
