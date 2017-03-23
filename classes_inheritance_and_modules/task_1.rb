@@ -6,9 +6,10 @@
 #=============#
 #lvl 1
 class Animal
-  attr_accessor :animal, :animal_class
+  attr_accessor :animal_name, :animal_class
 
-  private def food_type
+# protected method
+  protected def food_type
     case animal_class
       when 'bird'
         food = 'corn'
@@ -22,13 +23,17 @@ class Animal
     food
   end
 
+  def what_eats(animal)
+    puts "#{animal.animal_class.capitalize + 's'} eat #{animal.food_type}"
+  end
+
   def eat
     food = food_type
-    puts "#{animal.capitalize} is eating #{food} now"
+    puts "#{animal_name.capitalize} is eating #{food} now"
   end
 
   def sleep
-    puts "#{animal.capitalize} sleeps"
+    puts "#{animal_name.capitalize} sleeps"
   end
 end
 
@@ -40,18 +45,19 @@ class Fish < Animal
   end
 
   def swim
-    puts "#{animal.capitalize} swims"
+    puts "#{animal_name.capitalize} swims"
   end
 end
 
 
 class Tetrapod < Animal
+# private methods
   private def going_sleep
-    puts "#{animal.capitalize} is going sleep"
+    puts "#{animal_name.capitalize} is going sleep"
   end
 
   private def wake_up
-    puts "#{animal.capitalize} waked up"
+    puts "#{animal_name.capitalize} waked up"
   end
 
   def night_sleeping
@@ -63,7 +69,7 @@ class Tetrapod < Animal
   end
 
   def walk
-    puts "#{animal.capitalize} walks"
+    puts "#{animal_name.capitalize} walks"
   end
 end
 
@@ -75,7 +81,7 @@ class Bird < Tetrapod
   end
 
   def fly
-    puts "#{animal.capitalize} flies"
+    puts "#{animal_name.capitalize} flies"
   end
 end
 
@@ -86,27 +92,26 @@ class Reptile < Tetrapod
   end
 
   def run
-    puts "#{animal.capitalize} running"
+    puts "#{animal_name.capitalize} running"
   end
 
   def hunt
-    puts "#{animal.capitalize} hunting"
+    puts "#{animal_name.capitalize} hunting"
   end
 end
 
 bird = Bird.new
-bird.animal = 'Crow'
+bird.animal_name = 'Crow'
 reptile = Reptile.new
-reptile.animal = 'Lizard'
+reptile.animal_name = 'Lizard'
 fish = Fish.new
-fish.animal = 'Shark'
+fish.animal_name = 'Shark'
 
+# public methods tests
 bird.eat
 bird.fly
-#bird.going_sleep      #will cause NoMethodError
 bird.night_sleeping
 
-#reptile.wake_up       #will cause NoMethodError
 reptile.walk
 reptile.run
 reptile.hunt
@@ -114,4 +119,12 @@ reptile.eat
 
 fish.eat
 fish.swim
-#fish.food_type        #will cause NoMethodError
+
+# protected methods tests
+bird.what_eats(fish)
+reptile.what_eats(bird)
+fish.what_eats(reptile)
+
+# private methods tests
+bird.going_sleep      #will cause NoMethodError
+reptile.wake_up       #will cause NoMethodError
