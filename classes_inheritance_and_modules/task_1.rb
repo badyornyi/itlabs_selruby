@@ -10,15 +10,20 @@ class Animal
 
   def what_eats(animal)
     puts "#{animal.animal_class.capitalize + 's'} eat #{animal.food_type}"
+    what_eat = animal.food_type
+    what_eat
   end
 
   def eat
     food = food_type
     puts "#{animal_name.capitalize} is eating #{food} now"
+    food
   end
 
   def sleep
     puts "#{animal_name.capitalize} sleeps"
+    is_sleeping = true
+    is_sleeping
   end
 
 # protected method
@@ -47,6 +52,8 @@ class Fish < Animal
 
   def swim
     puts "#{animal_name.capitalize} swims"
+    is_swim = true
+    is_swim
   end
 end
 
@@ -58,19 +65,28 @@ class Tetrapod < Animal
       sleep
     end
     wake_up
+    is_slept_already = true
+    is_slept_already
   end
 
   def walk
     puts "#{animal_name.capitalize} walks"
+    is_walking = true
+    is_walking
   end
 
 # private methods
-  private def going_sleep
+  private
+  def going_sleep
     puts "#{animal_name.capitalize} is going sleep"
+    is_went_sleep = true
+    is_went_sleep
   end
 
-  private def wake_up
+  def wake_up
     puts "#{animal_name.capitalize} waked up"
+    is_waked_up = true
+    is_waked_up
   end
 end
 
@@ -83,6 +99,8 @@ class Bird < Tetrapod
 
   def fly
     puts "#{animal_name.capitalize} flies"
+    is_flying = true
+    is_flying
   end
 end
 
@@ -94,38 +112,13 @@ class Reptile < Tetrapod
 
   def run
     puts "#{animal_name.capitalize} running"
+    is_running = true
+    is_running
   end
 
   def hunt
     puts "#{animal_name.capitalize} hunting"
+    is_hunting = true
+    is_hunting
   end
 end
-
-bird = Bird.new
-bird.animal_name = 'Crow'
-reptile = Reptile.new
-reptile.animal_name = 'Lizard'
-fish = Fish.new
-fish.animal_name = 'Shark'
-
-# public methods tests
-bird.eat
-bird.fly
-bird.night_sleeping
-
-reptile.walk
-reptile.run
-reptile.hunt
-reptile.eat
-
-fish.eat
-fish.swim
-
-# protected methods tests
-bird.what_eats(fish)
-reptile.what_eats(bird)
-fish.what_eats(reptile)
-
-# private methods tests
-bird.going_sleep      #will cause NoMethodError
-reptile.wake_up       #will cause NoMethodError
