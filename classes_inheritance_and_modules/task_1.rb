@@ -8,21 +8,6 @@
 class Animal
   attr_accessor :animal_name, :animal_class
 
-# protected method
-  protected def food_type
-    case animal_class
-      when 'bird'
-        food = 'corn'
-      when 'fish'
-        food = 'water plants'
-      when 'reptile'
-        food = 'other animals'
-      else
-        raise 'This is unknown animal'
-    end
-    food
-  end
-
   def what_eats(animal)
     puts "#{animal.animal_class.capitalize + 's'} eat #{animal.food_type}"
   end
@@ -34,6 +19,22 @@ class Animal
 
   def sleep
     puts "#{animal_name.capitalize} sleeps"
+  end
+
+# protected method
+  protected
+  def food_type
+    case animal_class
+      when 'bird'
+        food = 'corn'
+      when 'fish'
+        food = 'water plants'
+      when 'reptile'
+        food = 'other animals'
+      else
+        raise 'This is unknown animal'
+    end
+    food
   end
 end
 
@@ -51,15 +52,6 @@ end
 
 
 class Tetrapod < Animal
-# private methods
-  private def going_sleep
-    puts "#{animal_name.capitalize} is going sleep"
-  end
-
-  private def wake_up
-    puts "#{animal_name.capitalize} waked up"
-  end
-
   def night_sleeping
     going_sleep
     3.times do
@@ -70,6 +62,15 @@ class Tetrapod < Animal
 
   def walk
     puts "#{animal_name.capitalize} walks"
+  end
+
+# private methods
+  private def going_sleep
+    puts "#{animal_name.capitalize} is going sleep"
+  end
+
+  private def wake_up
+    puts "#{animal_name.capitalize} waked up"
   end
 end
 
