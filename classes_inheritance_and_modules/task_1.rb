@@ -10,8 +10,7 @@ class Animal
 
   def what_eats(animal)
     puts "#{animal.animal_class.capitalize + 's'} eat #{animal.food_type}"
-    what_eat = animal.food_type
-    what_eat
+    animal.food_type
   end
 
   def eat
@@ -22,8 +21,7 @@ class Animal
 
   def sleep
     puts "#{animal_name.capitalize} sleeps"
-    is_sleeping = true
-    is_sleeping
+    true
   end
 
 # protected method
@@ -52,8 +50,7 @@ class Fish < Animal
 
   def swim
     puts "#{animal_name.capitalize} swims"
-    is_swim = true
-    is_swim
+    true
   end
 end
 
@@ -65,28 +62,24 @@ class Tetrapod < Animal
       sleep
     end
     wake_up
-    is_slept_already = true
-    is_slept_already
+    true
   end
 
   def walk
     puts "#{animal_name.capitalize} walks"
-    is_walking = true
-    is_walking
+    true
   end
 
 # private methods
   private
   def going_sleep
     puts "#{animal_name.capitalize} is going sleep"
-    is_went_sleep = true
-    is_went_sleep
+    true
   end
 
   def wake_up
     puts "#{animal_name.capitalize} waked up"
-    is_waked_up = true
-    is_waked_up
+    true
   end
 end
 
@@ -99,8 +92,7 @@ class Bird < Tetrapod
 
   def fly
     puts "#{animal_name.capitalize} flies"
-    is_flying = true
-    is_flying
+    true
   end
 end
 
@@ -112,13 +104,11 @@ class Reptile < Tetrapod
 
   def run
     puts "#{animal_name.capitalize} running"
-    is_running = true
-    is_running
+    true
   end
 
   def hunt
     puts "#{animal_name.capitalize} hunting"
-    is_hunting = true
-    is_hunting
+    true
   end
 end
