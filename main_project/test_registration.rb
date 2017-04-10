@@ -2,6 +2,7 @@ require 'test/unit'
 require 'selenium-webdriver'
 require_relative 'our_module'
 
+
 class TestRegistration < Test::Unit::TestCase
   include OurModule
 
@@ -260,6 +261,19 @@ class TestRegistration < Test::Unit::TestCase
     actual_result = Hash.new
     actual_result[:issue_type] = @driver.find_element(:xpath => '//h2').text.delete(' #0123456789')
     actual_result[:watching] = issue_watched?
+    assert_equal(expected_result,actual_result)
+  end
+
+  def test_exception_no_project
+    register_user
+    create_project_name
+    open_page_projects
+    @i = 0
+    open_project(@project_name)
+
+    @wait.until {@driver.find_element(:css => 'h1').displayed?}
+    expected_result = @project_name
+    actual_result = @driver.find_element(:css => 'h1').text
     assert_equal(expected_result,actual_result)
   end
 
