@@ -306,10 +306,7 @@ module OurModule
     create_project_commit
   end
 
-  def open_project(project_name)
-    @wait.until {@driver.find_element(:css => '#projects-index').displayed?}
-    projects = @driver.find_elements(:css => '.project.root.leaf')
-
+  def is_project_in_list?(project_name, projects)
     projects.map do |project|
       if project.text == project_name
         @exist = true
@@ -318,21 +315,31 @@ module OurModule
         @exist = false
       end
     end
+  end
 
-    begin
-      if @exist
-        @driver.find_element(:xpath => "//a[.='#{project_name}']").click
-      else
-        raise NoProjectError
-      end
-    rescue NoProjectError => error
-      puts "#{error} was rescued!!!"
-      create_project_with_name
-      open_page_projects
-      @i+=1
-      if @i < 3
-        open_project(project_name)
-      end
+  def open_project_handler(project_name)
+    if @exist
+      @driver.find_element(:xpath => "//a[.='#{project_name}']").click
+    else
+      raise NoProjectError
+    end
+  rescue NoProjectError => error
+    puts "#{error} was rescued!!!"
+    create_project_with_name
+    open_page_projects
+    @i+=1
+    if @i < 3
+      open_project(project_name)
     end
   end
+
+
+  def open_project(project_name)
+    @wait.until {@driver.find_element(:css => '#projects-index').displayed?}
+    projects = @driver.find_elements(:css => '.project.root.leaf')
+    is_project_in_list?(project_name, projects)
+
+    open_project_handler(project_name)
+  end
+
 end
