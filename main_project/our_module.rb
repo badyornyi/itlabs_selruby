@@ -1,4 +1,8 @@
+require_relative 'our_exceptions'
+
 module OurModule
+  include OurExceptions
+
   def register_user
     @driver.navigate.to 'http://demo.redmine.org'
     @driver.find_element(:class => 'register').click
@@ -75,8 +79,11 @@ module OurModule
     @driver.find_element(:css => '.icon.icon-add').click
   end
 
-  def create_project_fill_form
+  def create_project_name
     @project_name = ('project' + rand(99999).to_s)
+  end
+
+  def create_project_fill_form
     @wait.until {@driver.find_element(:id => 'project_name').displayed?}
     @driver.find_element(:id => 'project_name').send_keys(@project_name)
     @driver.find_element(:id => 'project_description').send_keys('Description for ' + @project_name)
@@ -89,6 +96,7 @@ module OurModule
   end
 
   def create_project
+    create_project_name
     create_project_open_page
     create_project_fill_form
     create_project_commit
@@ -291,4 +299,36 @@ module OurModule
   def issue_open_details(issue_subject)
     @driver.find_element(:xpath => "//a[.='#{issue_subject}']").click
   end
+
+  def create_project_with_name
+    create_project_open_page
+    create_project_fill_form
+    create_project_commit
+  end
+
+  def get_project_titles
+    @driver.find_elements(:css => '.project.root.leaf').map(&:text)
+  end
+  
+  def open_project_handler(project_name)
+    if get_project_titles.include?(project_name)
+      @driver.find_element(:xpath => "//a[.='#{project_name}']").click
+    else
+      raise NoProjectError
+    end
+  rescue NoProjectError => error
+    puts "#{error} was rescued!!!"
+    create_project_with_name
+    open_page_projects
+    @i+=1
+    if @i < 3
+      open_project(project_name)
+    end
+  end
+
+  def open_project(project_name)
+    @wait.until {@driver.find_element(:css => '#projects-index').displayed?}
+    open_project_handler(project_name)
+  end
+
 end
