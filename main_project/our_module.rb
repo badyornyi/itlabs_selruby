@@ -307,20 +307,11 @@ module OurModule
   end
 
   def get_project_titles
-    @driver.find_elements(:css => '.project.root.leaf').map! do |project_element|
-      project_element.text
-    end
+    @driver.find_elements(:css => '.project.root.leaf').map(&:text)
   end
-
-  def is_project_in_list?(project_name)
-    get_project_titles.each do |project|
-      @q = true if project == project_name
-    end
-    @q
-  end
-
+  
   def open_project_handler(project_name)
-    if is_project_in_list?(project_name)
+    if get_project_titles.include?(project_name)
       @driver.find_element(:xpath => "//a[.='#{project_name}']").click
     else
       raise NoProjectError
