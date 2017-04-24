@@ -1,10 +1,12 @@
 require 'test/unit'
 require 'selenium-webdriver'
+require 'rspec'
 require_relative 'our_module'
 
 
 class TestRegistration < Test::Unit::TestCase
   include OurModule
+  include RSpec::Matchers
 
   #Initial Setup
   def setup
@@ -21,7 +23,7 @@ class TestRegistration < Test::Unit::TestCase
 
     @wait.until {@driver.find_element(:id => 'flash_notice').displayed?}
     register_success = @driver.find_element(:id => 'flash_notice')
-    assert(register_success.displayed?)
+    expect(register_success).to be_displayed
   end
 
   #Log Out after registration
@@ -31,7 +33,7 @@ class TestRegistration < Test::Unit::TestCase
 
     @wait.until {@driver.find_element(:class => 'login').displayed?}
     login_button = @driver.find_element(:class => 'login')
-    assert(login_button.displayed?)
+    expect(login_button).to be_displayed
   end
 
   #Log In
@@ -42,9 +44,8 @@ class TestRegistration < Test::Unit::TestCase
 
     @wait.until {@driver.find_element(:id => 'loggedas').displayed?}
     expected_login = @login
-    #actual_login = @driver.find_element(:css => 'div[id="loggedas"] a.user.active').text
     actual_login = @driver.find_element(:css => '#loggedas .user').text
-    assert_equal(expected_login,actual_login)
+    expect(actual_login).to eql(expected_login)
   end
 
   #Log Out after logging in
@@ -56,7 +57,7 @@ class TestRegistration < Test::Unit::TestCase
 
     @wait.until {@driver.find_element(:class => 'login').displayed?}
     login_button = @driver.find_element(:class => 'login')
-    assert(login_button.displayed?)
+    expect(login_button).to be_displayed
   end
 
   #Change Password
@@ -66,7 +67,7 @@ class TestRegistration < Test::Unit::TestCase
 
     @wait.until {@driver.find_element(:id => 'flash_notice').displayed?}
     pwd_change_success = @driver.find_element(:id => 'flash_notice')
-    assert(pwd_change_success.displayed?)
+    expect(pwd_change_success).to be_displayed
   end
 
   #Create Project
@@ -76,7 +77,7 @@ class TestRegistration < Test::Unit::TestCase
 
     @wait.until {@driver.find_element(:id => 'flash_notice').displayed?}
     project_create_success = @driver.find_element(:id => 'flash_notice')
-    assert(project_create_success.displayed?)
+    expect(project_create_success).to be_displayed
   end
 
   #Add another (your) user to the Project
@@ -93,7 +94,7 @@ class TestRegistration < Test::Unit::TestCase
     @wait.until {@driver.find_elements(:css => '.name.user')[@name_index].displayed?}
     expected_added_user = (@additional_user + ' ' + @additional_user)
     actual_added_user = @driver.find_elements(:css => '.name.user')[@name_index].text
-    assert_equal(expected_added_user,actual_added_user)
+    expect(actual_added_user).to eql(expected_added_user)
   end
 
   #Edit their (users’) roles
@@ -116,7 +117,7 @@ class TestRegistration < Test::Unit::TestCase
     @wait.until {@driver.find_elements(:css => '.roles span')[@name_index].displayed?}
     expected_new_role = 'Developer'
     actual_new_role = @driver.find_elements(:css => '.roles span')[@name_index].text
-    assert_equal(expected_new_role,actual_new_role)
+    expect(actual_new_role).to eql(expected_new_role)
   end
 
   #Create Project version
@@ -127,7 +128,7 @@ class TestRegistration < Test::Unit::TestCase
 
     @wait.until {@driver.find_element(:id => 'flash_notice').displayed?}
     project_ver_create_success = @driver.find_element(:id => 'flash_notice')
-    assert(project_ver_create_success.displayed?)
+    expect(project_ver_create_success).to be_displayed
   end
 
   ###Create all 3 types of issues
@@ -142,7 +143,7 @@ class TestRegistration < Test::Unit::TestCase
     @wait.until {@driver.find_element(:css => '.subject h3').displayed?}
     expected_issue_subj = @issue_subj
     actual_issue_subj = @driver.find_element(:css => '.subject h3').text
-    assert_equal(expected_issue_subj,actual_issue_subj)
+    expect(actual_issue_subj).to eql(expected_issue_subj)
   end
 
   #Create Feature Issue
@@ -156,7 +157,7 @@ class TestRegistration < Test::Unit::TestCase
     @wait.until {@driver.find_element(:css => '.subject h3').displayed?}
     expected_issue_subj = @issue_subj
     actual_issue_subj = @driver.find_element(:css => '.subject h3').text
-    assert_equal(expected_issue_subj,actual_issue_subj)
+    expect(actual_issue_subj).to eql(expected_issue_subj)
   end
 
   #Create Support Issue
@@ -170,7 +171,7 @@ class TestRegistration < Test::Unit::TestCase
     @wait.until {@driver.find_element(:css => '.subject h3').displayed?}
     expected_issue_subj = @issue_subj
     actual_issue_subj = @driver.find_element(:css => '.subject h3').text
-    assert_equal(expected_issue_subj,actual_issue_subj)
+    expect(actual_issue_subj).to eql(expected_issue_subj)
   end
 
   #Ensure all 3 types of issues are visible on ‘Issues’ tab
@@ -188,7 +189,7 @@ class TestRegistration < Test::Unit::TestCase
 
     expected_visible_issue = @issue_subj
     actual_visible_issue = @driver.find_elements(:css => '.subject a')[@issue_index].text
-    assert_equal(expected_visible_issue,actual_visible_issue)
+    expect(actual_visible_issue).to eql(expected_visible_issue)
   end
 
   #Visible Feature Issue
@@ -205,7 +206,7 @@ class TestRegistration < Test::Unit::TestCase
 
     expected_visible_issue = @issue_subj
     actual_visible_issue = @driver.find_elements(:css => '.subject a')[@issue_index].text
-    assert_equal(expected_visible_issue,actual_visible_issue)
+    expect(actual_visible_issue).to eql(expected_visible_issue)
   end
 
   #Visible Support Issue
@@ -222,7 +223,7 @@ class TestRegistration < Test::Unit::TestCase
 
     expected_visible_issue = @issue_subj
     actual_visible_issue = @driver.find_elements(:css => '.subject a')[@issue_index].text
-    assert_equal(expected_visible_issue,actual_visible_issue)
+    expect(actual_visible_issue).to eql(expected_visible_issue)
   end
 
   #HW #3
@@ -261,7 +262,7 @@ class TestRegistration < Test::Unit::TestCase
     actual_result = Hash.new
     actual_result[:issue_type] = @driver.find_element(:xpath => '//h2').text.delete(' #0123456789')
     actual_result[:watching] = issue_watched?
-    assert_equal(expected_result,actual_result)
+    expect(actual_result).to eql(expected_result)
   end
 
   def test_exception_no_project
@@ -274,7 +275,7 @@ class TestRegistration < Test::Unit::TestCase
     @wait.until {@driver.find_element(:css => 'h1').displayed?}
     expected_result = @project_name
     actual_result = @driver.find_element(:css => 'h1').text
-    assert_equal(expected_result,actual_result)
+    expect(actual_result).to eql(expected_result)
   end
 
   def teardown

@@ -1,5 +1,6 @@
 require 'test/unit'
 require 'faker'
+require 'rspec'
 require_relative 'user'
 require_relative 'board'
 require_relative 'list'
@@ -7,6 +8,7 @@ require_relative 'card'
 require_relative 'comment'
 
 class TestTrello < Test::Unit::TestCase
+  include RSpec::Matchers
 
   def setup
     @login = Faker::Internet.user_name
@@ -17,7 +19,7 @@ class TestTrello < Test::Unit::TestCase
     user = User.new(@login)
     user.register
 
-    assert_equal(@login,user.login)
+    expect(user.login).to eql(@login)
   end
 
   def test_board_create
@@ -26,7 +28,7 @@ class TestTrello < Test::Unit::TestCase
 
     board = user.create_board(@board_title)
 
-    assert_equal(@board_title,board.title)
+    expect(board.title).to eql(@board_title)
   end
 
   def test_board_mark_as_favorite
@@ -36,7 +38,7 @@ class TestTrello < Test::Unit::TestCase
 
     board.mark_favorite
 
-    assert_equal(true,board.is_favorite)
+    expect(board.is_favorite).to be true
   end
 
   def test_board_rename
@@ -47,6 +49,6 @@ class TestTrello < Test::Unit::TestCase
     new_title = 'New Board Title'
     board.rename(new_title)
 
-    assert_equal(new_title,board.title)
+    expect(board.title).to eql(new_title)
   end
 end
