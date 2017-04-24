@@ -23,7 +23,7 @@ class TestRegistration < Test::Unit::TestCase
 
     @wait.until {@driver.find_element(:id => 'flash_notice').displayed?}
     register_success = @driver.find_element(:id => 'flash_notice')
-    expect(register_success.displayed?).to be true
+    expect(register_success).to be_displayed
   end
 
   #Log Out after registration
@@ -33,7 +33,7 @@ class TestRegistration < Test::Unit::TestCase
 
     @wait.until {@driver.find_element(:class => 'login').displayed?}
     login_button = @driver.find_element(:class => 'login')
-    expect(login_button.displayed?).to be true
+    expect(login_button).to be_displayed
   end
 
   #Log In
@@ -57,7 +57,7 @@ class TestRegistration < Test::Unit::TestCase
 
     @wait.until {@driver.find_element(:class => 'login').displayed?}
     login_button = @driver.find_element(:class => 'login')
-    expect(login_button.displayed?).to be true
+    expect(login_button).to be_displayed
   end
 
   #Change Password
@@ -67,7 +67,7 @@ class TestRegistration < Test::Unit::TestCase
 
     @wait.until {@driver.find_element(:id => 'flash_notice').displayed?}
     pwd_change_success = @driver.find_element(:id => 'flash_notice')
-    expect(pwd_change_success.displayed?).to be true
+    expect(pwd_change_success).to be_displayed
   end
 
   #Create Project
@@ -77,7 +77,7 @@ class TestRegistration < Test::Unit::TestCase
 
     @wait.until {@driver.find_element(:id => 'flash_notice').displayed?}
     project_create_success = @driver.find_element(:id => 'flash_notice')
-    expect(project_create_success.displayed?).to be true
+    expect(project_create_success).to be_displayed
   end
 
   #Add another (your) user to the Project
@@ -128,7 +128,7 @@ class TestRegistration < Test::Unit::TestCase
 
     @wait.until {@driver.find_element(:id => 'flash_notice').displayed?}
     project_ver_create_success = @driver.find_element(:id => 'flash_notice')
-    expect(project_ver_create_success.displayed?).to be true
+    expect(project_ver_create_success).to be_displayed
   end
 
   ###Create all 3 types of issues
