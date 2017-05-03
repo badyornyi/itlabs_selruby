@@ -1,7 +1,7 @@
 Feature: Log in
   As a User
   I want to be able
-  To log in to the app
+  to log in to the app
 
   Background: on Login page
     Given on Log in page

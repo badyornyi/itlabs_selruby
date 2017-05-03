@@ -1,7 +1,7 @@
 Feature: User password
   As a User
   I want to be able
-  To change my password
+  to change my password
 
   Background: on Change Password page
     Given I submit login form with valid data

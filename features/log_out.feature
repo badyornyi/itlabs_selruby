@@ -1,7 +1,7 @@
 Feature: Log out
   As a User
   I want to be able
-  To log out of the app
+  to log out of the app
 
   Background: on Login page
     Given on Log in page

@@ -1,7 +1,7 @@
 Feature: User registration
   As a User
   I want to be able
-  To register
+  to register
 
   Scenario: Positive registration
     Given on Registration page
