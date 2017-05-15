@@ -3,6 +3,7 @@ Feature: User registration
   I want to be able
   to register
 
+  @pre_implemented
   Scenario: Positive registration
     Given on Registration page
     When I submit registration form with valid data

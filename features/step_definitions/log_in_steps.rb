@@ -3,13 +3,17 @@ Given(/^on Log in page$/) do
 end
 
 When(/^I submit user: (.*)\/(.*)$/) do |login, password|
-  @driver.find_element(:id => 'username').send_keys login
-  @driver.find_element(:id => 'password').send_keys password
-  @driver.find_element(:name => 'login').click
+  log_in(login, password)
+end
+
+And(/^I submit login form with valid data$/) do
+  step 'on Log in page'
+  step "I submit user: #{@login}\/password"
+  #log_in(@login, @password)
 end
 
 Then(/^I am logged in$/) do
-  current_login = @driver.find_element(:css => '#loggedas .user').text
+  current_login = @driver.find_element(:css => '#loggedas .user.active').text
   expect(current_login).to eql @login
 end
 

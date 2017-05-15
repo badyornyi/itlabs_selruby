@@ -1,5 +1,5 @@
-+ #1. Registration
-+ #2. Login
+++ #1. Registration
+++ #2. Login
 + #3. Logout after registration
 + #4. Logout after login
 + #5. Change password
