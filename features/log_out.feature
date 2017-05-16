@@ -16,7 +16,7 @@ Feature: Log out
     And  I submit login form with valid data
     When I open <page_name> page
     And  I click Logout button
-    Then I see main page
+    Then I see main page with Login button
     Examples:
       | page_name    |
       | Home page    |

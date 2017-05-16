@@ -39,5 +39,16 @@ module HelperMethods
     @driver.find_element(:name => 'login').click
   end
 
-
+  def get_page_address(page_name)
+    case page_name
+      when 'Home page'
+        ''
+      when 'User page'
+        'my/page'
+      when 'Account page'
+        'my/account'
+      else
+        fail "Sorry, we do not know such page: #{page_name}"
+    end
+  end
 end
