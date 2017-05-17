@@ -3,22 +3,17 @@ Feature: Log out
   I want to be able
   to log out of the app
 
-  Scenario: 1. Log out right after registration
+  Background: on Login page
     Given on Registration page
     And  I submit registration form with valid data
+
+  Scenario: 1. Log out right after registration
     When I click Logout button
     Then I see main page with Login button
 
-  Scenario Outline: 2. Log out after login
-    Given on Registration page
-    And  I submit registration form with valid data
-    And I click Logout button
+  Scenario: 2. Log out after login
+    And  I click Logout button
     And  I submit login form with valid data
-    When I open <page_name> page
+    When I open User Account page
     And  I click Logout button
     Then I see main page with Login button
-    Examples:
-      | page_name    |
-      | Home page    |
-      | User page    |
-      | Account page |

@@ -1,12 +1,13 @@
 Given(/^on Main page$/) do
-  @driver.get 'http://demo.redmine.org/'
+  open_page_main
 end
 
-When(/^I click (.*) button$/) do |button|
-  click(button)
+Then(/^I see message "([^"]*)"$/) do |message|
+  message_text = @driver.find_element(:id => 'flash_notice').text
+  expect(message_text).to eql message
 end
 
-When(/^I open (.*) page$/) do |page_name|
-  page_address = get_page_address(page_name)
-  @driver.get "http://demo.redmine.org/#{page_address}"
+Then(/^I see error message: (.*)$/) do |message|
+  error_text = @driver.find_element(:id => 'flash_error').text
+  expect(error_text).to eql message
 end

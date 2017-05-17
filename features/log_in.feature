@@ -7,12 +7,12 @@ Feature: Log in
     Given on Log in page
 
   @pre_implemented
-  Scenario: Positive log in
+  Scenario: 1. Positive log in
     When I submit user: last_test_user/last_test_user
     Then I am logged in
 
   @pre_implemented
-  Scenario Outline: Negative cases
+  Scenario Outline: 2. Negative cases
     When I submit user: <login>/<password>
     Then I see error message: <message>
     Examples:

@@ -4,7 +4,7 @@ Feature: User registration
   to register
 
   @pre_implemented
-  Scenario: Positive registration
+  Scenario: 1. Positive registration
     Given on Registration page
     When I submit registration form with valid data
     #Then I see message "Your account has been activated. You can now log in."
