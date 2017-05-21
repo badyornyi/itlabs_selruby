@@ -7,10 +7,12 @@ Feature: Log out
     Given on Registration page
     And  I submit registration form with valid data
 
+  @pre_implemented
   Scenario: 1. Log out right after registration
     When I click Logout button
     Then I see main page with Login button
 
+  @pre_implemented
   Scenario: 2. Log out after login
     And  I click Logout button
     And  I submit login form with valid data

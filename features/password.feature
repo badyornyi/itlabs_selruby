@@ -8,6 +8,7 @@ Feature: User password
     And   I submit registration form with valid data
     And   I open Change Password page
 
+  @pre_implemented
   Scenario: 1. Password change
     When I input my old password
     And  I input my new password
