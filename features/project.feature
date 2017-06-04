@@ -11,7 +11,7 @@ Feature: Project
 
   @pre_implemented
   Scenario: 1. Create new project
-    When I click New project button
+    When I open New Project creation form
     And  I submit Project Creation form with valid data
     Then I see message "Создание успешно."
 
@@ -34,6 +34,6 @@ Feature: Project
   Scenario: 4. Create project version
     When I create new project
     And  I open Versions project tab
-    And  I click New version button
+    And  I open New Project Version creation form
     And  I submit Project Version Creation form with valid data
     Then I see message "Создание успешно."

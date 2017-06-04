@@ -9,13 +9,13 @@ Feature: Log out
 
   @pre_implemented
   Scenario: 1. Log out right after registration
-    When I click Logout button
-    Then I see main page with Login button
+    When I am logging out
+    Then I see main page with possibility to log in
 
   @pre_implemented
   Scenario: 2. Log out after login
-    And  I click Logout button
+    And  I am logging out
     And  I submit login form with valid data
     When I open User Account page
-    And  I click Logout button
-    Then I see main page with Login button
+    And  I am logging out
+    Then I see main page with possibility to log in

@@ -7,8 +7,8 @@ When(/^I submit user: (.*)\/(.*)$/) do |login, password|
 end
 
 And(/^I submit login form with valid data$/) do
-  step 'on Log in page'
-  step "I submit user: #{@login}\/#{@password}"
+  open_page_login
+  log_in(@login, @password)
 end
 
 Then(/^I am logged in$/) do

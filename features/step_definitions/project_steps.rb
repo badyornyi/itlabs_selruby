@@ -2,7 +2,7 @@ And(/^I open Projects page$/) do
   open_page_projects
 end
 
-When(/^I click New project button$/) do
+When(/^I open New Project creation form$/) do
   project_new_project
 end
 
@@ -13,8 +13,7 @@ And(/^I submit Project Creation form with valid data$/) do
 end
 
 When(/^I create new project$/) do
-  step 'I click New project button'
-  step 'I submit Project Creation form with valid data'
+  project_create_new_project
 end
 
 And(/^I open Members project tab$/) do
@@ -63,11 +62,16 @@ Then(/^I see user (.*) in the members list with role (.*)$/) do |user_name, role
   expect(actual_new_role).to eql(role_name)
 end
 
-And(/^I click New version button$/) do
+And(/^I open New Project Version creation form$/) do
   version_add_new_click
 end
 
 And(/^I submit Project Version Creation form with valid data$/) do
   version_add_new_fill_form
   version_add_new_commit
+end
+
+And(/^I create new project version$/) do
+  open_tab_versions
+  version_create_new_version
 end

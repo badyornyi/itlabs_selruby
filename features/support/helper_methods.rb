@@ -36,6 +36,11 @@ module HelperMethods
     @driver.find_element(:class => 'projects').click
   end
 
+  def open_page_issues
+    @wait.until {@driver.find_element(:css => '.issues').displayed?}
+    @driver.find_element(:css => '.issues').click
+  end
+
   def open_tab_proj_members
     @wait.until {@driver.find_element(:id => 'tab-members').displayed?}
     @driver.find_element(:id => 'tab-members').click
@@ -53,7 +58,7 @@ module HelperMethods
     if login
       @login = login
     else
-      @login = 'my_test_user_' + rand(999).to_s
+      @login = 'my_test_user_' + rand(9999).to_s
     end
     @password = @login + '_pwd'
     hash = {
@@ -115,6 +120,13 @@ module HelperMethods
 
   def project_commit_form
     @driver.find_element(:css => 'input[name=commit]').click
+  end
+
+  def project_create_new_project
+    project_new_project
+    project_create_name
+    project_fill_form
+    project_commit_form
   end
 
 
@@ -203,6 +215,63 @@ module HelperMethods
 
   def version_add_new_commit
     @driver.find_element(:name => 'commit').click
+  end
+
+  def version_create_new_version
+    version_add_new_click
+    version_add_new_fill_form
+    version_add_new_commit
+  end
+
+
+  ### Issues methods
+
+  def issue_add_new_click
+    @wait.until {@driver.find_element(:class => 'new-issue').displayed?}
+    @driver.find_element(:class => 'new-issue').click
+  end
+
+  def issue_create_issue_fill_form(issue_type)
+    @issue_subj = issue_type + ' ' + rand(99999).to_s
+    @issue_type = issue_type
+
+    @wait.until {@driver.find_element(:id => 'issue_tracker_id').displayed?}
+    @driver.find_element(:id => 'issue_tracker_id').send_keys(@issue_type)
+    @driver.find_element(:id => 'issue_subject').send_keys(@issue_subj)
+    @driver.find_element(:id => 'issue_description').send_keys('Description')
+    @driver.find_element(:id => 'issue_assigned_to_id').send_keys(@login)
+    @driver.find_element(:id => 'issue_fixed_version_id').send_keys(@version)
+  end
+
+  def issue_create_issue_commit
+    @wait.until {@driver.find_element(:css => 'input[name="commit"]').displayed?}
+    @driver.find_element(:css => 'input[name="commit"]').click
+  end
+
+  def issue_added_resolve_name
+    @issue_title = ''
+    issues_titles = @driver.find_elements(:css => '.subject a')
+    issues_count = @driver.find_elements(:css => '.subject a').count
+    @issue_index = 0
+    until ((@issue_title == @issue_subj) || (@issue_index >= issues_count)) do
+      @issue_title = issues_titles[@issue_index].text
+      @issue_index+=1
+    end
+    @issue_index = @issue_index - 1
+  end
+
+  def issue_become_watcher
+    @wait.until {@driver.find_element(:css => '.icon.icon-fav-off').displayed?}
+    @driver.find_element(:css => '.icon.icon-fav-off').click
+  end
+
+  def issue_watched?
+    begin
+      @driver.find_element(:css => '.icon.icon-fav').displayed?
+      return true
+    rescue Selenium::WebDriver::Error::NoSuchElementError
+      return false
+    end
   end
 
 
