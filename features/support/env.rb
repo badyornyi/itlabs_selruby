@@ -1,6 +1,5 @@
-require 'selenium-webdriver'
 require 'rspec/expectations'
-require_relative 'helper_methods'
+require 'page-object'
 
-World(HelperMethods)
 World(RSpec::Matchers)
+World(PageObject::PageFactory)
