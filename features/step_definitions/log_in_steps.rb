@@ -7,8 +7,9 @@ When(/^I submit user: (.*)\/(.*)$/) do |login, password|
 end
 
 And(/^I submit login form with valid data$/) do
-  open_page_login
-  log_in(@login, @password)
+  login = @user[:login]
+  password = @user[:password]
+  visit(LoginPage).log_in(login,password)
 end
 
 Then(/^I am logged in$/) do

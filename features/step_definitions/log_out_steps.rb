@@ -1,6 +1,5 @@
 When(/^I am logging out$/) do
-  @wait.until {@driver.find_element(:class => 'logout').displayed?}
-  @driver.find_element(:class => 'logout').click
+  on(HomePage).log_out
 end
 
 When(/^I open User Account page$/) do
@@ -8,8 +7,5 @@ When(/^I open User Account page$/) do
 end
 
 Then(/^I see main page with possibility to log in$/) do
-  @wait.until {@driver.find_element(:class => 'login').displayed?}
-  login_button = @driver.find_element(:class => 'login')
-
-  expect(login_button).to be
+  expect(on(HomePage).log_in?).to be(true)
 end
