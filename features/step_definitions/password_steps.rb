@@ -1,15 +1,10 @@
 And(/^I open Change Password page$/) do
-  open_page_password
+  visit(PasswordPage)
 end
 
-When(/^I input my old password$/) do
-  password_input
-end
-
-And(/^I input my new password$/) do
-  password_input_new
-end
-
-And(/^I submit password change$/) do
-  password_change_commit
+When(/^I change my password$/) do
+  old_password = @user[:password]
+  new_password = old_password + '_new'
+  @user[:password] = new_password
+  on(PasswordPage).change_password(old_password,new_password)
 end
