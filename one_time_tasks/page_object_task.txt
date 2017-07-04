@@ -1,0 +1,51 @@
+1. Investigate Page Sections feature in PageObject gem and describe when and why we would need it
+
+Page Sections feature gives two useful and powerful abilities:
+- breaking down large conceptual areas;
+- representing collections of related elements.
+
+Breaking down large conceptual areas.
+We can divide page to logic areas, describe each its area as a section,
+and then we can put sections together on one Page Object but like the separate Page Objects.
+This ability will be useful for describing elements and methods for Main page (e.g. search section, main menu section,
+and main page itself)
+
+Representing collections of related elements.
+Using this ability, we can work with complex collections of related elements.
+Like search results or lists of some one-type items, but with more than one property.
+e.g. Projects list contain two fields: project name (mandatory) and project description (optional). If we get both
+collections and will try to link each pair of elements using indexes - than some pairs could be corrupted
+because [project_names.count >= project_descriptions.count]. So some descriptions could be shifted to another's project
+This ability will be useful for looking through Projects list, Issues list, Members list
+
+
+2. Explain what PageFactory module does and why we need it
+
+Page Factory allows us to call page methods right after page class usage:
+- visit(MyAppPage).call_method
+- on(MyAppPage).call_method
+instead of 'classic' call:
+my_page = Page.new
+my_page.call_method
+
+This feature useful to make our code more simple, readable and shorter.
+
+
+3. Investigate and understand what happening when we call on(MyPageClass) method and why we're able to call page methods just after this method call?
+Investigating of 'on' method implementation:
+    alias_method :on, :on_page
+
+0    def on_page(page_class, params={:using_params => {}}, visit=false, &block)
+1      page_class = class_from_string(page_class) if page_class.is_a? String
+2      return super(page_class, params, visit, &block) unless page_class.ancestors.include? PageObject
+3      merged = page_class.params.merge(params[:using_params])
+4      page_class.instance_variable_set("@merged_params", merged) unless merged.empty?
+5      @current_page = page_class.new(@browser, visit)
+6      block.call @current_page if block
+7      @current_page
+8    end
+
+Strings 1-4 of 'on_page' method perform some magic that puts all necessary parameters to 'page_class' (including MyPageClass).
+String 5 saves Page to variable @current_page with declared @browser and 'visit' method
+String 6 calls @current_page. And this hidden call allows us to don't use 'my_page = MyPage.new'
+String 7 returns @current_page variable to be used later (if necessary)

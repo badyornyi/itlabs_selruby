@@ -1,13 +1,11 @@
 Given(/^on Main page$/) do
-  open_page_main
+  visit(HomePage)
 end
 
-Then(/^I see message "([^"]*)"$/) do |message|
-  message_text = @driver.find_element(:id => 'flash_notice').text
-  expect(message_text).to eql message
+Then(/^I see success message$/) do
+  expect(on(HomePage).success_message?).to be(true)
 end
 
-Then(/^I see error message: (.*)$/) do |message|
-  error_text = @driver.find_element(:id => 'flash_error').text
-  expect(error_text).to eql message
+Then(/^I see error message$/) do
+  expect(on(HomePage).error_message?).to be(true)
 end
