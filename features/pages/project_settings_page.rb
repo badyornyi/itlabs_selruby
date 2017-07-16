@@ -2,15 +2,14 @@ class ProjectSettingsPage < HomePage
 
   include PageObject
 
-  #project_id = @project[:identifier]
-  #page_url DEFAULT_PAGE + "/projects/#{project_id}/settings"
-
   ### Elements
   
   ## tabs
   link(:information_tab, id: 'tab-info')
   link(:members_tab, id: 'tab-members')
   link(:versions_tab, id: 'tab-versions')
+  link(:new_issue, class: 'new-issue')
+  link(:issues, class: 'issues')
 
   ## Members tab
   link(:new_member, class: 'icon icon-add')
@@ -33,6 +32,18 @@ class ProjectSettingsPage < HomePage
   text_field(:version_date, id: 'version_effective_date')
   button(:submit_version, name: 'commit')
 
+  ## New Issue tab
+  select_list(:issue_type, id: 'issue_tracker_id')
+  text_field(:issue_subject, id: 'issue_subject')
+  text_area(:issue_description, id: 'issue_description')
+  select_list(:issue_status, id: 'issue_status_id')
+  button(:submit_issue, name: 'commit')
+
+  ## Issues tab
+  cells(:issue_subjects, class: 'subject')
+  link(:start_watch, class: 'icon icon-fav-off')
+  link(:stop_watch, class: 'icon icon-fav')
+
 
   ### Methods
 
@@ -54,6 +65,22 @@ class ProjectSettingsPage < HomePage
     self.version_wiki_page = @version + ' Wiki'
     self.version_date = Date.today
     submit_version
+  end
+
+  def add_new_issue(issue_type)
+    issue_subj = issue_type + ' ' + DateTime.now.strftime('%s')
+    self.new_issue
+    self.issue_type = issue_type
+    self.issue_subject = issue_subj
+    self.issue_description = issue_subj + ' description'
+    self.issue_status = 'New'
+    submit_issue
+    issue_subj
+  end
+
+  def issue_watched?
+    self.wait_until {stop_watch?}
+    stop_watch?
   end
 
 

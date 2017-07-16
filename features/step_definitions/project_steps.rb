@@ -37,7 +37,8 @@ And(/^I add user (.*) to the project$/) do |user_name|
 end
 
 Then(/^I see user (.*) in the members list$/) do |user_name|
-  result = on(ProjectSettingsPage).members_names_elements.map(&:text).include? (user_name + ' ' + user_name)
+  member_name = user_name + ' ' + user_name
+  result = on(ProjectSettingsPage).members_names_elements.map(&:text).include? member_name
   expect(result).to be(true)
 end
 
@@ -61,16 +62,13 @@ end
 #   expect(actual_new_role).to eql(role_name)
 # end
 
-# And(/^I open New Project Version creation form$/) do
-#   version_add_new_click
-# end
-
 And(/^I submit Project Version Creation form with valid data$/) do
   project_name = @project[:name]
   on(ProjectSettingsPage).add_project_version(project_name)
 end
 
 And(/^I create new project version$/) do
-  open_tab_versions
-  version_create_new_version
+  on(ProjectSettingsPage).versions_tab
+  project_name = @project[:name]
+  on(ProjectSettingsPage).add_project_version(project_name)
 end
