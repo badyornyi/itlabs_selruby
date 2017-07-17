@@ -6,7 +6,6 @@ class ProjectsPage < HomePage
 
   ### Elements
 
-  link(:new_project, class: 'icon icon-add')
   links(:projects_titles, class: 'project root leaf')
 
 

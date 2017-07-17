@@ -9,15 +9,15 @@ class ProjectSettingsPage < HomePage
   link(:members_tab, id: 'tab-members')
   link(:versions_tab, id: 'tab-versions')
   link(:new_issue, class: 'new-issue')
-  link(:issues, class: 'issues')
+  link(:issues_tab, class: 'issues')
 
   ## Members tab
-  link(:new_member, class: 'icon icon-add')
   cells(:members_names, class: 'name user')
   links(:members_edit_buttons, class: 'icon icon-edit')
 
   # "New member" pop-up
   text_field(:search_user, id: 'principal_search')
+  checkboxes(:potential_users, name: 'membership[user_ids][]')
   checkbox(:found_user, name: 'membership[user_ids][]')
   checkbox(:manager_role, xpath: "//*[@class='roles-selection']//label//input[@value='3']")
   checkbox(:developer_role, xpath: "//*[@class='roles-selection']//label//input[@value='4']")
@@ -30,14 +30,12 @@ class ProjectSettingsPage < HomePage
   text_field(:version_description, id: 'version_description')
   text_field(:version_wiki_page, id: 'version_wiki_page_title')
   text_field(:version_date, id: 'version_effective_date')
-  button(:submit_version, name: 'commit')
 
   ## New Issue tab
   select_list(:issue_type, id: 'issue_tracker_id')
   text_field(:issue_subject, id: 'issue_subject')
   text_area(:issue_description, id: 'issue_description')
   select_list(:issue_status, id: 'issue_status_id')
-  button(:submit_issue, name: 'commit')
 
   ## Issues tab
   cells(:issue_subjects, class: 'subject')
@@ -48,23 +46,25 @@ class ProjectSettingsPage < HomePage
   ### Methods
 
   def add_member_to_project(user, role = 'Manager')
-    new_member
+    add_new_item
     self.search_user = user
-    sleep 0.5
+    wait_until { potential_users_elements.count == 1 }
     check_found_user
+    wait_until { found_user_checked? }
     select_role(role)
     submit_member
-    sleep 0.5
+    wait_until { members_names_elements.map(&:text).include? (user + ' ' + user) }
   end
 
   def add_project_version(project_name)
-    @version = project_name + '_version_' + (Date.today).to_s
+    version = project_name + '_version_' + (Date.today).to_s
+    #add_new_item
     new_version
-    self.version_name = @version
-    self.version_description = @version + ' description'
-    self.version_wiki_page = @version + ' Wiki'
+    self.version_name = version
+    self.version_description = version + ' description'
+    self.version_wiki_page = version + ' Wiki'
     self.version_date = Date.today
-    submit_version
+    submit
   end
 
   def add_new_issue(issue_type)
@@ -74,7 +74,7 @@ class ProjectSettingsPage < HomePage
     self.issue_subject = issue_subj
     self.issue_description = issue_subj + ' description'
     self.issue_status = 'New'
-    submit_issue
+    submit
     issue_subj
   end
 
@@ -88,16 +88,7 @@ class ProjectSettingsPage < HomePage
 
   def select_role(role_name)
     role_name.downcase!
-    case role_name
-      when 'manager'
-        check_manager_role
-      when 'developer'
-        check_developer_role
-      when 'reporter'
-        check_reporter_role
-      else
-        fail "Unknown user role name: #{role_name}"
-    end
+    send("check_#{role_name}_role")
   end
 
 end

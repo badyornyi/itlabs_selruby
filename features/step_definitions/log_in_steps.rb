@@ -7,11 +7,9 @@ When(/^I submit user: (.*)\/(.*)$/) do |login, password|
 end
 
 And(/^I submit login form with valid data$/) do
-  login = @user[:login]
-  password = @user[:password]
-  visit(LoginPage).log_in(login,password)
+  visit(LoginPage).log_in(@user[:login],@user[:password])
 end
 
 Then(/^I am logged in$/) do
-  expect(on(LoginPage).logged_in?).to be(true)
+  expect(on(LoginPage).logged_in?).to be
 end

@@ -10,7 +10,6 @@ class NewProjectPage < HomePage
   text_area(:description, id: 'project_description')
   text_field(:identifier, id: 'project_identifier')
   text_field(:homepage, id: 'project_homepage')
-  button(:create, name: 'commit')
 
 
   ### Methods
@@ -20,7 +19,7 @@ class NewProjectPage < HomePage
     self.description = project[:description]
     self.identifier = project[:identifier]
     self.homepage = project[:homepage]
-    create
+    submit
   end
 
 end

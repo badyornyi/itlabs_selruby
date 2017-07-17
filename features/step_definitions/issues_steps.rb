@@ -3,12 +3,11 @@ When(/^I submit New Issue form with valid data and issue type (.*)$/) do |issue_
 end
 
 And(/^I open Issues page$/) do
-  on(ProjectSettingsPage).issues
+  on(ProjectSettingsPage).issues_tab
 end
 
 Then(/^I see created issue in the list$/) do
-  result = on(ProjectSettingsPage).issue_subjects_elements.map(&:text).include? @issue_subject
-  expect(result).to be(true)
+  expect(on(ProjectSettingsPage).issue_subjects_elements.map(&:text)).to include(@issue_subject)
 end
 
 And(/^I start to watch issue$/) do
@@ -16,6 +15,5 @@ And(/^I start to watch issue$/) do
 end
 
 Then(/^I can see that issue is watched$/) do
-  result = on(ProjectSettingsPage).issue_watched?
-  expect(result).to be(true)
+  expect(on(ProjectSettingsPage).issue_watched?).to be
 end
