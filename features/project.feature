@@ -17,11 +17,16 @@ Feature: Project
     And  I see created project in Projects List
 
   @pre_implemented @page_objected
-  Scenario: 2. Add user to project
+  Scenario Outline: 2. Add user to project
     When I create new project
-    And  I open Members project tab
-    And  I add user last_test_user to the project
+    And I open Members project tab
+    And I add user last_test_user to the project with role <role_name>
     Then I see user last_test_user in the members list
+    Examples:
+      | role_name |
+      | Manager   |
+      | Developer |
+      | Reporter  |
 
   @pre_implemented
   Scenario: 3. Edit user role

@@ -19,13 +19,14 @@ class ProjectSettingsPage < HomePage
   text_field(:search_user, id: 'principal_search')
   checkboxes(:potential_users, name: 'membership[user_ids][]')
   checkbox(:found_user, name: 'membership[user_ids][]')
-  checkbox(:manager_role, xpath: "//*[@class='roles-selection']//label//input[@value='3']")
-  checkbox(:developer_role, xpath: "//*[@class='roles-selection']//label//input[@value='4']")
-  checkbox(:reporter_role, xpath: "//*[@class='roles-selection']//label//input[@value='5']")
+  checkbox(:manager_role, css: ".roles-selection input[value='3']")
+  checkbox(:developer_role, css: ".roles-selection input[value='4']")
+  checkbox(:reporter_role, css: ".roles-selection input[value='5']")
   button(:submit_member, id: 'member-add-submit')
 
   ## Versions tab
-  link(:new_version, xpath: "//*[@id='tab-content-versions']//p//a[@class='icon icon-add']")
+  div(:versions_tab_content, id: 'tab-content-versions')
+  link(:new_version) {|page| page.versions_tab_content_element.link}
   text_field(:version_name, id: 'version_name')
   text_field(:version_description, id: 'version_description')
   text_field(:version_wiki_page, id: 'version_wiki_page_title')
@@ -58,7 +59,6 @@ class ProjectSettingsPage < HomePage
 
   def add_project_version(project_name)
     version = project_name + '_version_' + (Date.today).to_s
-    #add_new_item
     new_version
     self.version_name = version
     self.version_description = version + ' description'
