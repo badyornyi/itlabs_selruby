@@ -3,9 +3,9 @@ Given(/^on Main page$/) do
 end
 
 Then(/^I see success message$/) do
-  expect(on(HomePage).success_message?).to be(true)
+  expect(on(HomePage).success_message?).to be
 end
 
 Then(/^I see error message$/) do
-  expect(on(HomePage).error_message?).to be(true)
+  expect(on(HomePage).error_message?).to be
 end

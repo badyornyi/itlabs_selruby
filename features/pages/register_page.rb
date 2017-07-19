@@ -11,7 +11,6 @@ class RegisterPage < HomePage
   text_field(:first_name, id: 'user_firstname')
   text_field(:last_name, id: 'user_lastname')
   text_field(:email, id: 'user_mail')
-  button(:submit, name: 'commit')
 
 
   ### Methods

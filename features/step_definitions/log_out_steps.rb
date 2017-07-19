@@ -7,5 +7,5 @@ When(/^I open User Account page$/) do
 end
 
 Then(/^I see main page with possibility to log in$/) do
-  expect(on(HomePage).log_in?).to be(true)
+  expect(on(HomePage).log_in?).to be
 end

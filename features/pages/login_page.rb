@@ -6,8 +6,7 @@ class LoginPage < HomePage
   ### Elements
 
   text_field(:login, id: 'username')
-  text_field(:password, id: 'password')
-  button(:submit, name: 'login')
+  button(:submit_login, name: 'login')
 
 
   ### Methods
@@ -15,7 +14,7 @@ class LoginPage < HomePage
   def log_in(login, password)
     self.login = login
     self.password = password
-    submit
+    submit_login
   end
 
 end
