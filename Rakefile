@@ -33,7 +33,7 @@ namespace :tests do
 
   desc 'All tests running excluding registration'
   task :all_tests_no_reg => :register_tests do
-    sh 'cucumber -t @page_objected -t ~@register'
+    sh 'cucumber -t @page_objected -t ~@register -f junit -o reports/ -f html -o reports/report.html'
   end
 
 end
